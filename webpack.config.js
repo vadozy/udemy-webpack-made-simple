@@ -9,6 +9,6 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     port: 9000,
-    watchContentBase: true
+    watchContentBase: true // enable hot loading to static (html) files
   }
 }
