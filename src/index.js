@@ -1,3 +1,5 @@
+import url from './index.css';
+
 const { sum } = require('./sum');
 
 console.log('Hello from webpack');
