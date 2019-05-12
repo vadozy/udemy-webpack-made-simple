@@ -1,4 +1,10 @@
-import url from './index.css';
+import style from './index.css';
+import scss from './index.scss';
+import Icon from './courseImage.png';
+
+let myIcon = new Image();
+myIcon.src = Icon;
+document.querySelector("div").appendChild(myIcon);
 
 const { sum } = require('./sum');
 
