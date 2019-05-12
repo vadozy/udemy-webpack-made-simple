@@ -1,5 +1,6 @@
 import style from './index.css';
 import scss from './index.scss';
+import style2 from './index2.scss';
 import Icon from './courseImage.png';
 
 let myIcon = new Image();

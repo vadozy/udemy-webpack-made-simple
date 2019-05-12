@@ -1,12 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: "bundle.js"
+    filename: "[name].[contenthash].js"
   },
   devServer: {
     //contentBase: path.join(__dirname, 'dist'),
@@ -18,6 +20,12 @@ module.exports = {
       template: "./src/index.html"
     }),
     new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+    }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/,
+    }),
   ],
   module: {
     rules: [
@@ -26,13 +34,8 @@ module.exports = {
         //use: ["style-loader", "css-loader"]
         //use: ["style-loader/url", "file-loader"]
         use: [
-          "style-loader/url",
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]"
-            }
-          }
+          MiniCssExtractPlugin.loader,
+          "css-loader", // translates CSS into CommonJS
         ]
       },
       {
@@ -48,7 +51,8 @@ module.exports = {
       {
         test: /\.s[ca]ss$/,
         use: [
-            "style-loader", // creates style nodes from JS strings
+            // "style-loader", // creates style nodes from JS strings
+            MiniCssExtractPlugin.loader,
             "css-loader", // translates CSS into CommonJS
             "sass-loader" // compiles Sass to CSS, using Node Sass by default
         ]
